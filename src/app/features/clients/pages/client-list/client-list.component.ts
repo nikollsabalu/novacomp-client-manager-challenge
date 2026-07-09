@@ -40,6 +40,7 @@ export class ClientListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getClients();
+    this.configureTableFilter();
   }
 
 
@@ -127,5 +128,42 @@ export class ClientListComponent implements OnInit {
     };
 
     this.paginatorIntl.changes.next();
+  }
+
+  private configureTableFilter(): void {
+    this.dataSource.filterPredicate = (client: Client, filter: string): boolean => {
+      const search = filter.trim().toLowerCase();
+
+      const firstName = client.firstName?.toLowerCase() || '';
+      const lastName = client.lastName?.toLowerCase() || '';
+      const age = client.age?.toString() || '';
+      const birthDate = this.formatBirthDate(client.birthDate).toLowerCase();
+
+
+      return (
+        firstName.includes(search) ||
+        lastName.includes(search) ||
+        age.includes(search) ||
+        birthDate.includes(search)
+      );
+    };
+  }
+
+  private formatBirthDate(value: any): string {
+    if (!value) return '';
+
+    let date: Date;
+
+    if (value.seconds) {
+      date = new Date(value.seconds * 1000);
+    } else {
+      date = new Date(value);
+    }
+
+    return new Intl.DateTimeFormat('es-PE', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }).format(date);
   }
 }

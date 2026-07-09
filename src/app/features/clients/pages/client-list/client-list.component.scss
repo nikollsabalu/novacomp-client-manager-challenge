@@ -56,7 +56,7 @@ tr:hover {
 }
 
 .search {
-    width: 320px;
+    width: 420px;
 }
 
 .table-wrapper {
@@ -183,6 +183,10 @@ td {
     justify-content: flex-end;
     align-items: center;
     margin-top: 24px;
+}
+
+.input-placeholder {
+    font-size: 13px !important;
 }
 
 @media (max-width: 900px) {

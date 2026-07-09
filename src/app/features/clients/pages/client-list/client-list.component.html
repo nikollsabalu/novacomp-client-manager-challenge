@@ -57,8 +57,9 @@
         <div class="panel-search">
             <mat-form-field appearance="outline" class="search">
                 <mat-label>Buscar cliente</mat-label>
-                <input matInput placeholder="Nombre, apellido o edad" (keyup)="applyFilter($event)"
-                    [disabled]="totalClients === 0" />
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput placeholder="Nombre, apellido, edad o fecha de nacimiento" (keyup)="applyFilter($event)"
+                    [disabled]="totalClients === 0" class="input-placeholder" />
             </mat-form-field>
 
         </div>
