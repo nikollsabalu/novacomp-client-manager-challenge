@@ -13,6 +13,7 @@ import { take } from 'rxjs';
 export class LoginComponent {
   isLoading = false;
   errorMessage = '';
+  hidePassword = true;
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
