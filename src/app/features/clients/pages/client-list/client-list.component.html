@@ -1,0 +1,113 @@
+<header class="hero">
+    <nav class="nav">
+        <div class="hero-image">
+            <img src="assets/images/logo-novacomp.png" alt="Client Manager" />
+        </div>
+        <button mat-raised-button routerLink="/clients/new">
+            <mat-icon>add</mat-icon>
+            Nuevo cliente
+        </button>
+    </nav>
+
+    <section class="hero-content">
+        <span class="eyebrow">Angular + Firebase</span>
+        <h1>Gestor de clientes</h1>
+        <p>
+            Gestiona clientes, visualiza registros y analiza datos de edad en una plataforma simple y segura.
+        </p>
+
+    </section>
+</header>
+
+<main class="page-container">
+    <mat-card class="panel">
+        <div class="panel-header">
+            <mat-card-title>Clientes registrados</mat-card-title>
+
+            <mat-form-field appearance="outline" class="search">
+                <mat-label>Buscar cliente</mat-label>
+                <input matInput placeholder="Nombre, apellido o edad" (keyup)="applyFilter($event)" />
+            </mat-form-field>
+        </div>
+
+        <div class="stats-grid">
+
+            <mat-card class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon">
+                        <mat-icon>groups</mat-icon>
+                    </div>
+
+                    <div class="stat-info">
+                        <span>Total clientes</span>
+                        <strong>{{ totalClients }}</strong>
+                    </div>
+                </div>
+            </mat-card>
+
+            <mat-card class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon">
+                        <mat-icon>cake</mat-icon>
+                    </div>
+
+                    <div class="stat-info">
+                        <span>Promedio de edad</span>
+                        <strong>{{ averageAge | number:'1.1-1' }}</strong>
+                    </div>
+                </div>
+            </mat-card>
+
+            <mat-card class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon">
+                        <mat-icon>analytics</mat-icon>
+                    </div>
+
+                    <div class="stat-info">
+                        <span>Desviación estándar</span>
+                        <strong>{{ standardDeviation | number:'1.1-2' }}</strong>
+                    </div>
+                </div>
+            </mat-card>
+
+        </div>
+
+        <div class="table-wrapper" *ngIf="dataSource.data.length > 0; else emptyState">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                    <td mat-cell *matCellDef="let client">{{ client.firstName }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</th>
+                    <td mat-cell *matCellDef="let client">{{ client.lastName }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="age">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Edad</th>
+                    <td mat-cell *matCellDef="let client">{{ client.age }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="birthDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha nacimiento</th>
+                    <td mat-cell *matCellDef="let client">
+                        {{ client.birthDate | birthDate }}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+        </div>
+
+        <ng-template #emptyState>
+            <p class="empty">Aún no hay clientes registrados.</p>
+        </ng-template>
+    </mat-card>
+</main>
+
+<app-loading *ngIf="isLoading"></app-loading>

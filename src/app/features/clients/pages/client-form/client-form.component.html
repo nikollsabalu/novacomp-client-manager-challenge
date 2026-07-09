@@ -1,0 +1,57 @@
+<div class="client-form-page">
+
+    <div>
+        <button mat-button class="return-button" routerLink="/clients">
+            ← Volver al listado
+        </button>
+    </div>
+
+    <mat-card class="client-form-card">
+        <mat-card-header>
+            <mat-card-title>Registrar cliente</mat-card-title>
+            <mat-card-subtitle>Completa los datos del nuevo cliente</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="firstName" />
+                    <mat-error *ngIf="clientForm.get('firstName')?.hasError('required')">
+                        El nombre es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput formControlName="lastName" />
+                    <mat-error *ngIf="clientForm.get('lastName')?.hasError('required')">
+                        El apellido es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input matInput type="date" formControlName="birthDate" />
+                    <mat-error *ngIf="clientForm.get('birthDate')?.hasError('required')">
+                        La fecha de nacimiento es obligatoria
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Edad</mat-label>
+                    <input matInput type="number" formControlName="age" readonly />
+                    <mat-error *ngIf="clientForm.get('age')?.hasError('required')">
+                        La edad se calculará al seleccionar la fecha de nacimiento
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button class="save-button" type="submit">
+                    Guardar cliente
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<app-loading *ngIf="isLoading"></app-loading>

@@ -1,0 +1,44 @@
+.dialog-container {
+    width: 320px;
+    padding: 32px;
+    text-align: center;
+}
+
+.icon {
+    width: 72px;
+    height: 72px;
+    margin: auto;
+
+    border-radius: 50%;
+    background: #071b4d;
+
+    color: white;
+    font-size: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 12px;
+}
+
+p {
+    color: #6b7280;
+}
+
+.confirm-button {
+    width: 100%;
+    color: #fff !important;
+    font-weight: 500;
+    margin-bottom: 24px;
+    background-color: #071b4d !important;
+    height: 3rem;
+}
+
+.confirm-button:hover {
+    background: #0b2f75 !important;
+}
