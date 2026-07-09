@@ -1,0 +1,55 @@
+ .login-page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 24px;
+
+  background:
+    radial-gradient(circle at 80% 20%, rgba(35, 166, 240, .35), transparent 32%),
+    linear-gradient(135deg, #071b4d 0%, #0b2f75 52%, #0f62b6 100%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+  padding: 36px;
+  border-radius: 22px;
+  text-align: center;
+}
+
+.logo {
+  width: 170px;
+  margin-bottom: 28px;
+}
+
+h1 {
+  margin: 0;
+  color: #102033;
+  font-size: 32px;
+}
+
+p {
+  margin: 10px 0 28px;
+  color: #64748b;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-button {
+  height: 48px;
+  border-radius: 0.5rem;
+  background: #002677 !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  color: #dc2626;
+  font-size: 14px;
+}

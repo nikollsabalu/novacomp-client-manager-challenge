@@ -17,14 +17,18 @@ import { SuccessDialogComponent } from './shared/components/success-dialog/succe
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { BirthDatePipe } from './shared/pipes/birthdate.pipe';
+import { LoginComponent } from './features/auth/pages/login/login.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     ClientFormComponent,
     ClientListComponent,
     SuccessDialogComponent,
     LoadingComponent,
+    HeaderComponent,
     FooterComponent,
     BirthDatePipe
   ],

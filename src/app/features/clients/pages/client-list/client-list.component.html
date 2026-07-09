@@ -1,4 +1,4 @@
-<header class="hero">
+<!-- <header class="hero">
     <nav class="nav">
         <div class="hero-image">
             <img src="assets/images/logo-novacomp.png" alt="Client Manager" />
@@ -17,17 +17,19 @@
         </p>
 
     </section>
-</header>
+</header> -->
 
 <main class="page-container">
     <mat-card class="panel">
         <div class="panel-header">
             <mat-card-title>Clientes registrados</mat-card-title>
 
-            <mat-form-field appearance="outline" class="search">
-                <mat-label>Buscar cliente</mat-label>
-                <input matInput placeholder="Nombre, apellido o edad" (keyup)="applyFilter($event)" />
-            </mat-form-field>
+            <button mat-raised-button routerLink="/clients/new">
+                <mat-icon>add</mat-icon>
+                Nuevo cliente
+            </button>
+
+
         </div>
 
         <div class="stats-grid">
@@ -72,6 +74,11 @@
             </mat-card>
 
         </div>
+
+        <mat-form-field appearance="outline" class="search">
+            <mat-label>Buscar cliente</mat-label>
+            <input matInput placeholder="Nombre, apellido o edad" (keyup)="applyFilter($event)" />
+        </mat-form-field>
 
         <div class="table-wrapper" *ngIf="dataSource.data.length > 0; else emptyState">
             <table mat-table [dataSource]="dataSource" matSort>

@@ -1,0 +1,21 @@
+<header class="hero"  [class.hero-compact]="!showHero">
+    <nav class="nav">
+        <div class="hero-image">
+            <img src="assets/images/logo-novacomp.png" alt="Client Manager" />
+        </div>
+       
+        <button mat-button class="logout-button" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            Cerrar sesión
+        </button>
+    </nav>
+
+    <section class="hero-content"  *ngIf="showHero">
+        <span class="eyebrow">Angular + Firebase</span>
+        <h1>Gestor de clientes</h1>
+        <p>
+            Gestiona clientes, visualiza registros y analiza datos de edad en una plataforma simple y segura.
+        </p>
+
+    </section>
+</header>

@@ -6,6 +6,7 @@ import { SuccessDialogComponent } from './components/success-dialog/success-dial
 import { LoadingComponent } from './components/loading/loading.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BirthdatePipe } from './pipes/birthdate.pipe';
+import { HeaderComponent } from './components/header/header.component';
 
 
 
@@ -16,7 +17,8 @@ import { BirthdatePipe } from './pipes/birthdate.pipe';
     SuccessDialogComponent,
     LoadingComponent,
     FooterComponent,
-    BirthdatePipe
+    BirthdatePipe,
+    HeaderComponent
   ],
   imports: [
     CommonModule

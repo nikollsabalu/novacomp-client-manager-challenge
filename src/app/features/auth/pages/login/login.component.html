@@ -1,1 +1,46 @@
-<p>login works!</p>
+<div class="login-page">
+  <mat-card class="login-card">
+    <img
+      src="assets/images/logo-novacomp.png"
+      alt="Novacomp"
+      class="logo"
+    />
+
+    <h1>Iniciar sesión</h1>
+    <p>Accede al gestor de clientes</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Correo</mat-label>
+        <input matInput type="email" formControlName="email" />
+
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          El correo es obligatorio
+        </mat-error>
+
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          Ingresa un correo válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" />
+
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          La contraseña es obligatoria
+        </mat-error>
+      </mat-form-field>
+
+      <p class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+
+      <button mat-raised-button class="login-button" type="submit">
+        Ingresar
+      </button>
+    </form>
+  </mat-card>
+</div>
+
+<app-loading *ngIf="isLoading"></app-loading>
