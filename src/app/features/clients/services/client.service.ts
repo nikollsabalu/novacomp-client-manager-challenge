@@ -18,6 +18,11 @@ export class ClientService {
 
   constructor(private firestore: Firestore) { }
 
+  /**
+   * Obtiene el listado de clientes registrados desde Firestore, ordenados por fecha de creación descendente.
+   * @returns Observable con la lista de clientes.
+   */
+
   getClients(): Observable<Client[]> {
     const clientsRef = collection(this.firestore, this.collectionName);
 
@@ -31,6 +36,12 @@ export class ClientService {
     }) as Observable<Client[]>;
   }
 
+  /**
+   * Registra un nuevo cliente en Firestore.
+   *
+   * @param client Información del cliente a registrar.
+   * @returns Promesa con la referencia del documento creado.
+   */
   addClient(client: Client) {
     const clientsRef = collection(this.firestore, this.collectionName);
 

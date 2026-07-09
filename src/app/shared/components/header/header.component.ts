@@ -23,6 +23,9 @@ export class HeaderComponent {
       });
   }
 
+  /**
+   * Cierra la sesión del usuario y redirige a la pantalla de inicio de sesión.
+   */
   async logout(): Promise<void> {
     try {
       await this.authService.logout();

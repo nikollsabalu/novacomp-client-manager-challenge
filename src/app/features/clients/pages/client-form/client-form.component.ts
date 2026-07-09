@@ -12,6 +12,12 @@ import { SuccessDialogComponent } from 'src/app/shared/components/success-dialog
 })
 export class ClientFormComponent implements OnInit {
 
+  /**
+   * Valida que la fecha de nacimiento no corresponda a una fecha mayor a la actual.
+   *
+   * @param control Control del formulario a validar.
+   * @returns Error de validación o null cuando la fecha es válida.
+   */
   notFutureDateValidator = (control: AbstractControl) => {
     if (!control.value) return null;
 
@@ -62,6 +68,10 @@ export class ClientFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Valida el formulario y registra un nuevo cliente.
+   * En caso de éxito muestra un mensaje de confirmación y redirige al listado de clientes.
+   */
   async onSubmit(): Promise<void> {
     if (this.clientForm.invalid) {
       this.clientForm.markAllAsTouched();
@@ -103,7 +113,12 @@ export class ClientFormComponent implements OnInit {
   }
 
 
-
+  /**
+   * Calcula la edad del cliente restando la fecha actual con la fecha de nacimiento.
+   *
+   * @param birthDate Fecha de nacimiento seleccionada.
+   * @returns Edad calculada o null si la fecha no es válida.
+   */
   private calculateAge(birthDate: string | null): number | null {
     if (!birthDate) return null;
 

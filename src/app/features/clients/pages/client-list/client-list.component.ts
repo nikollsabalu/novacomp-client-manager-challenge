@@ -42,6 +42,10 @@ export class ClientListComponent implements OnInit {
     this.getClients();
   }
 
+
+  /**
+   * Obtiene los clientes registrados en firebase y actualiza la tabla, así como las estadísticas del dashboard.
+   */
   getClients(): void {
     this.clientService.getClients().subscribe({
       next: (clients) => {
@@ -56,6 +60,11 @@ export class ClientListComponent implements OnInit {
     });
   }
 
+  /**
+   * Aplica un filtro sobre la tabla de clientes utilizando el texto ingresado por el usuario en el input de búsqueda.
+   *
+   * @param event Evento generado por el input de búsqueda.
+   */
   applyFilter(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.dataSource.filter = value.trim().toLowerCase();
@@ -65,6 +74,15 @@ export class ClientListComponent implements OnInit {
     }
   }
 
+
+  /**
+   * Calcula las estadísticas del listado de clientes:
+   * - Total de clientes.
+   * - Promedio de edad.
+   * - Desviación estándar.
+   *
+   * @param clients Lista de clientes registrados.
+   */
   calculateStatistics(clients: Client[]): void {
     this.totalClients = clients.length;
 

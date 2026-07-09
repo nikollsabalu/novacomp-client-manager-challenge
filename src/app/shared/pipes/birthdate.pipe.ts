@@ -5,6 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class BirthDatePipe implements PipeTransform {
 
+  /**
+   * Formatea una fecha de nacimiento según la configuración regional y el formato especificado.
+   *
+   * @param value Fecha a formatear.
+   * @param locale Configuración regional (por defecto es-PE).
+   * @param format Formato del mes ('short' o 'long').
+   * @returns Fecha formateada o '-' cuando el valor es inválido.
+   */
   transform(
     value: Date | string | null | undefined,
     locale = 'es-PE',
