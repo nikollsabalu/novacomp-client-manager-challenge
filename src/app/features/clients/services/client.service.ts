@@ -4,8 +4,8 @@ import {
   collection,
   collectionData,
   addDoc,
-  CollectionReference,
-  DocumentData
+  query,
+  orderBy
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { Client } from 'src/app/core/models/client.model';
@@ -19,24 +19,16 @@ export class ClientService {
   constructor(private firestore: Firestore) { }
 
   getClients(): Observable<Client[]> {
-    const clientsRef = collection(
-      this.firestore,
-      this.collectionName
-    ) as CollectionReference<DocumentData>;
+    const clientsRef = collection(this.firestore, this.collectionName);
 
-    return collectionData(clientsRef, { idField: 'id' }).pipe(
-      map((clients: any[]) =>
-        clients.map((client) => ({
-          ...client,
-          birthDate: client.birthDate?.toDate
-            ? client.birthDate.toDate()
-            : new Date(client.birthDate.seconds * 1000),
-          createdAt: client.createdAt?.toDate
-            ? client.createdAt.toDate()
-            : new Date(client.createdAt.seconds * 1000)
-        }))
-      )
-    ) as Observable<Client[]>;
+    const clientsQuery = query(
+      clientsRef,
+      orderBy('createdAt', 'desc')
+    );
+
+    return collectionData(clientsQuery, {
+      idField: 'id'
+    }) as Observable<Client[]>;
   }
 
   addClient(client: Client) {

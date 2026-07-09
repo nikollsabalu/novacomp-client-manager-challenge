@@ -1,30 +1,9 @@
-<!-- <header class="hero">
-    <nav class="nav">
-        <div class="hero-image">
-            <img src="assets/images/logo-novacomp.png" alt="Client Manager" />
-        </div>
-        <button mat-raised-button routerLink="/clients/new">
-            <mat-icon>add</mat-icon>
-            Nuevo cliente
-        </button>
-    </nav>
-
-    <section class="hero-content">
-        <span class="eyebrow">Angular + Firebase</span>
-        <h1>Gestor de clientes</h1>
-        <p>
-            Gestiona clientes, visualiza registros y analiza datos de edad en una plataforma simple y segura.
-        </p>
-
-    </section>
-</header> -->
-
 <main class="page-container">
     <mat-card class="panel">
         <div class="panel-header">
             <mat-card-title>Clientes registrados</mat-card-title>
 
-            <button mat-raised-button routerLink="/clients/new">
+            <button mat-raised-button routerLink="/clients/new" class="add-client-button">
                 <mat-icon>add</mat-icon>
                 Nuevo cliente
             </button>
@@ -42,7 +21,7 @@
 
                     <div class="stat-info">
                         <span>Total clientes</span>
-                        <strong>{{ totalClients }}</strong>
+                        <strong>{{ totalClients > 0 ? totalClients : '—' }}</strong>
                     </div>
                 </div>
             </mat-card>
@@ -55,7 +34,7 @@
 
                     <div class="stat-info">
                         <span>Promedio de edad</span>
-                        <strong>{{ averageAge | number:'1.1-1' }}</strong>
+                        <strong> {{ totalClients > 0 ? (averageAge | number:'1.1-1') : '—' }} </strong>
                     </div>
                 </div>
             </mat-card>
@@ -68,19 +47,25 @@
 
                     <div class="stat-info">
                         <span>Desviación estándar</span>
-                        <strong>{{ standardDeviation | number:'1.1-2' }}</strong>
+                        <strong> {{ totalClients > 0 ? (standardDeviation | number:'1.2-2') : '—' }} </strong>
                     </div>
                 </div>
             </mat-card>
 
         </div>
 
-        <mat-form-field appearance="outline" class="search">
-            <mat-label>Buscar cliente</mat-label>
-            <input matInput placeholder="Nombre, apellido o edad" (keyup)="applyFilter($event)" />
-        </mat-form-field>
+        <div class="panel-search">
+            <mat-form-field appearance="outline" class="search">
+                <mat-label>Buscar cliente</mat-label>
+                <input matInput placeholder="Nombre, apellido o edad" (keyup)="applyFilter($event)"
+                    [disabled]="totalClients === 0" />
+            </mat-form-field>
 
-        <div class="table-wrapper" *ngIf="dataSource.data.length > 0; else emptyState">
+        </div>
+
+
+
+        <div class="table-wrapper">
             <table mat-table [dataSource]="dataSource" matSort>
 
                 <ng-container matColumnDef="firstName">
@@ -101,19 +86,31 @@
                 <ng-container matColumnDef="birthDate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha nacimiento</th>
                     <td mat-cell *matCellDef="let client">
-                        {{ client.birthDate | birthDate }}
+                        {{ client.birthDate | birthDate:'es-PE':'long' }}
                     </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell empty-row" [attr.colspan]="displayedColumns.length">
+                        <mat-icon>groups</mat-icon>
+
+                        <h3>No hay clientes registrados</h3>
+
+                        <p>Comienza creando tu primer cliente.</p>
+                    </td>
+                </tr>
+
             </table>
+
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+            </mat-paginator>
         </div>
 
-        <ng-template #emptyState>
-            <p class="empty">Aún no hay clientes registrados.</p>
-        </ng-template>
+
     </mat-card>
 </main>
 

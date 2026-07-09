@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 
 import { ClientService } from '../../services/client.service';
 import { Client } from 'src/app/core/models/client.model';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-client-list',
@@ -25,7 +26,17 @@ export class ClientListComponent implements OnInit {
     }
   }
 
-  constructor(private clientService: ClientService) { }
+  @ViewChild(MatPaginator) set matPaginator(paginator: MatPaginator) {
+    if (paginator) {
+      this.dataSource.paginator = paginator;
+    }
+  }
+
+  constructor(
+    private clientService: ClientService,
+    private paginatorIntl: MatPaginatorIntl) {
+    this.translatePaginator();
+  }
 
   ngOnInit(): void {
     this.getClients();
@@ -48,6 +59,10 @@ export class ClientListComponent implements OnInit {
   applyFilter(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.dataSource.filter = value.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   calculateStatistics(clients: Client[]): void {
@@ -69,5 +84,30 @@ export class ClientListComponent implements OnInit {
       ages.length;
 
     this.standardDeviation = Math.sqrt(variance);
+  }
+
+  private translatePaginator(): void {
+    this.paginatorIntl.itemsPerPageLabel = 'Registros por página:';
+    this.paginatorIntl.nextPageLabel = 'Siguiente';
+    this.paginatorIntl.previousPageLabel = 'Anterior';
+    this.paginatorIntl.firstPageLabel = 'Primera página';
+    this.paginatorIntl.lastPageLabel = 'Última página';
+
+    this.paginatorIntl.getRangeLabel = (
+      page: number,
+      pageSize: number,
+      length: number
+    ): string => {
+      if (length === 0) {
+        return '0 de 0';
+      }
+
+      const startIndex = page * pageSize;
+      const endIndex = Math.min(startIndex + pageSize, length);
+
+      return `${startIndex + 1} - ${endIndex} de ${length}`;
+    };
+
+    this.paginatorIntl.changes.next();
   }
 }
